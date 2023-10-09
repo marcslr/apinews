@@ -5,7 +5,6 @@ import Head from "./Routes";
 function App() {
   return (
     <>
-      {/* <Navbar /> */}
       <div className="App">
         <Head />
       </div>
