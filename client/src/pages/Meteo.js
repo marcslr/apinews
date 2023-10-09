@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/meteo.css";
+import "../styles/Meteo.css";
 import video from "../videos/bg-meteo.mp4";
 
 export default function Meteo() {
