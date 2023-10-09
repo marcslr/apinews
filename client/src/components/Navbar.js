@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Navbar.css";
-import logo from "../images/logo-mmnews.png";
+import logo from "./images/logo-mmnews.png";
 import { Link } from "react-router-dom";
 
 

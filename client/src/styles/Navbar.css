@@ -1,0 +1,42 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #D62839; /* Couleur de fond de la barre de navigation */
+  color: white; /* Couleur du texte */
+  padding: 30px 20px;
+}
+
+.logo img {
+  width: 300px; /* Ajustez la largeur de votre logo */
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+
+/* Styles pour le format mobile */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .links {
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    background-color: #D62839; 
+    padding: 20px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+}
