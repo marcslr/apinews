@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Accueil.js";
 import Sports from "./pages/Sports.js";
