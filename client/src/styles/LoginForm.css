@@ -1,0 +1,75 @@
+/* Container principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Formulaire */
+.form {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.form h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.form .error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+}
+
+.form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.form p {
+  margin-top: 10px;
+  color: #333;
+}
+
+.form button.toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
