@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "../styles/styleLogin.css";
 import axios from "axios";
+<<<<<<< Updated upstream
 import RegisterForm from "../pages/RegisterForm";
+=======
+import RegisterForm from "./RegisterForm";
+>>>>>>> Stashed changes
 
 export default function LoginPage() {
   const [isLoginOpen, setIsLoginOpen] = useState(true);
@@ -30,7 +34,7 @@ export default function LoginPage() {
       // const res = await axios.post("/auth/login", inputs)
       // console.log(res);
       //   await login(inputs);
-      navigate("/admin/gestion");
+      // navigate("/admin/gestion");
     } catch (err) {
       setMessageErreur(err.response.data);
     }
