@@ -1,81 +1,37 @@
-import React, { useContext, useState } from "react";
-// import ReactDOM from "react";
+import React, { useState } from "react";
 import "../styles/styleLogin.css";
-
 import axios from "axios";
-// import { AuthContext } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import RegisterForm from "../pages/RegisterForm"; 
 
-export default class Log extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isLoginOpen: true, isRegisterOpen: false };
-  }
 
-  // pour le changement du return() afficher dans la page
-  showLoginBox() {
-    this.setState({ isLoginOpen: true, isRegisterOpen: false });
-  }
 
-  showRegisterBox() {
-    this.setState({ isRegisterOpen: true, isLoginOpen: false });
-  }
-
-  render() {
-    return (
-      <div className="root-container">
-        <div className="box-container">
-          <div
-            className={
-              "controller" +
-              (this.state.isLoginOpen ? "selected-controller" : "")
-            }
-            onClick={this.showLoginBox.bind(this)}
-          >
-            Login
-          </div>
-          <div
-            className={
-              "controller" +
-              (this.state.isRegisterOpen ? "selected-controller" : "")
-            }
-            onClick={this.showRegisterBox.bind(this)}
-          >
-            Register
-          </div>
-        </div>
-        <div className="box-container">
-          {this.state.isLoginOpen && <LoginBox />}
-          {this.state.isRegisterOpen && <RegisterBox />}
-        </div>
-      </div>
-    );
-  }
-}
-
-// --------- bloc return 1 LOGIN
-function LoginBox() {
+export default function LoginPage() {
+  const [isLoginOpen, setIsLoginOpen] = useState(true);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
+    nomUtilisateur: "",
+    motDePasse: "",
+    prénom: "",
+    nom: "",
+    email: "",
+    confirmerMotDePasse: "",
   });
-
   const [messageErreur, setMessageErreur] = useState(null);
-  // console.log(inputs);
 
-  const navigate = useNavigate();
-
-  //   const { login } = useContext(AuthContext);
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/login", inputs)
-      console.log(res);
-        // await login(inputs);
+      // const res = await axios.post("/auth/login", inputs)
+      // console.log(res);
+      //   await login(inputs);
       navigate("/admin/gestion");
     } catch (err) {
       setMessageErreur(err.response.data);
@@ -84,34 +40,36 @@ function LoginBox() {
 
   return (
     <div className="inner-container">
-      <div className="header">Login</div>
+      <div className="header">Connexion</div>
       <div className="box">
-        <div className="input-group">
-          <label htmlFor="username">username</label>
-          <input
-            type="text"
-            name="username"
-            className="login-input"
-            placeholder="username"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">password</label>
-          <input
-            type="password"
-            name="password"
-            className="login-input"
-            placeholder="password"
-            onChange={handleChange}
-          />
-        </div>
-
-        {messageErreur && <p>{messageErreur}</p>}
-        <button type="button" className="login-btn" onClick={handleSubmit}>
-          Login
-        </button>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="nomUtilisateur">Nom d'utilisateur :</label>
+            <input
+              type="text"
+              name="nomUtilisateur"
+              className="login-input"
+              placeholder="Nom d'utilisateur"
+              onChange={handleChange}
+              value={inputs.nomUtilisateur}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="motDePasse">Mot de passe :</label>
+            <input
+              type="password"
+              name="motDePasse"
+              className="login-input"
+              placeholder="Mot de passe"
+              onChange={handleChange}
+              value={inputs.motDePasse}
+            />
+          </div>
+          {messageErreur && <p>{messageErreur}</p>}
+          <button type="submit" className="login-btn">
+            Connexion
+          </button>
+        </form>
       </div>
     </div>
   );
@@ -140,7 +98,7 @@ function RegisterBox() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8800/api/auth",
+        "http://localhost:8800/api/pommedeterre",
         inputs
       );
       console.log(res);
@@ -150,7 +108,7 @@ function RegisterBox() {
   };
   return (
     <div className="inner-container">
-      <div className="header">Register</div>
+      <div className="header">Inscription</div>
       <div className="box">
         <div className="input-group">
           <label htmlFor="username">Nom d'utilisateur : </label>
@@ -162,7 +120,7 @@ function RegisterBox() {
             onChange={handleChange}
           />
         </div>
-        {/* <div className="input-group">
+        <div className="input-group">
           <label htmlFor="username">Nom : </label>
           <input
             type="text"
@@ -181,7 +139,7 @@ function RegisterBox() {
             placeholder="prénom"
             onChange={handleChange}
           />
-        </div> */}
+        </div>
 
         <div className="input-group">
           <label htmlFor="password">Email : </label>
@@ -194,7 +152,7 @@ function RegisterBox() {
           />
         </div>
 
-         <div className="input-group">
+        <div className="input-group">
           <label htmlFor="password">Mot de passe : </label>
           <input
             type="password"
@@ -205,7 +163,7 @@ function RegisterBox() {
           />
         </div>
 
-         {/*<div className="input-group">
+        <div className="input-group">
           <label htmlFor="password">Adresse :</label>
           <input
             type="text"
@@ -224,7 +182,7 @@ function RegisterBox() {
             placeholder="code postal"
             onChange={handleChange}
           />
-        </div> */}
+        </div>
         {messageErreur && <p>{messageErreur}</p>}
         <button type="button" className="login-btn" onClick={handleSubmit}>
           Enregistrer
@@ -233,6 +191,3 @@ function RegisterBox() {
     </div>
   );
 }
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<Log />);
