@@ -109,7 +109,34 @@ function LoginForm({ inputs, handleChange, handleSubmit, messageErreur }) {
   );
 }
 
-function RegisterForm({ inputs, handleChange, handleSubmit, messageErreur }) {
+// --------- bloc return 2 REGISTER
+function RegisterBox() {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+    prenom: "",
+    nom: "",
+    adresse: "",
+    codepost: "",
+  });
+
+  const [messageErreur, setMessageErreur] = useState(null);
+  // console.log(inputs);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/auth", inputs);
+      console.log(res);
+    } catch (err) {
+      setMessageErreur(err.response.data);
+    }
+  };
   return (
     <div className="inner-container">
       <div className="header">Inscription</div>
