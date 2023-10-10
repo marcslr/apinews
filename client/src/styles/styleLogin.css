@@ -1,6 +1,4 @@
-/* styleLogin.css */
 
-/* Styles pour le conteneur principal */
 .root-container {
   width: 100%;
   height: 100vh;
@@ -8,29 +6,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* Couleur d'arrière-plan */
+  background-color: #2ba4e1;
 }
 
-/* Styles pour les onglets de login et d'inscription */
 .controller {
   flex: 1;
   text-align: center;
   line-height: 2;
   cursor: pointer;
   padding: 10px;
-  background-color: #ffffff; /* Couleur de fond */
-  border: 1px solid #ccc; /* Bordure */
+  margin-bottom: 20px;
+  background-color: #70a1ff; 
+  border: 1px solid #ccc; 
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
 .selected-controller {
-  background-color: #70a1ff; /* Couleur de fond lorsque sélectionné */
-  color: #ffffff; /* Couleur du texte lorsque sélectionné */
-  border: 1px solid #70a1ff; /* Bordure lorsque sélectionné */
+  background-color: #70a1ff;
+  color: #ffffff;
+  border: 1px solid #70a1ff; 
 }
 
-/* Styles pour les formulaires de login et d'inscription */
 .box-container {
   display: flex;
   gap: 10px;
@@ -38,19 +35,20 @@
 
 .inner-container {
   width: 100%;
-  max-width: 400px; /* Largeur maximale du formulaire */
+  max-width: 400px; 
   padding: 20px;
-  background-color: #ffffff; /* Couleur de fond */
-  border: 1px solid #ccc; /* Bordure */
+  background-color: #737373; 
+  border: 1px solid #ccc; 
   border-radius: 5px;
   box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
+  text-align: center;
 }
 
 .header {
   text-align: center;
   padding: 10px;
   font-size: 24px;
-  border-bottom: 2px solid #70a1ff; /* Bordure inférieure */
+  border-bottom: 2px solid #70a1ff; 
 }
 
 .box {
@@ -64,17 +62,17 @@
   text-align: left;
   margin-top: 10px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
-/* Styles pour les labels */
 .login-label {
   font-size: 18px;
   font-weight: 600;
   padding-left: 5px;
   text-align: left;
+  text-align: center;
 }
 
-/* Styles pour les champs de formulaire */
 .login-input {
   width: 100%;
   height: 40px;
@@ -84,36 +82,37 @@
   font-size: 16px;
   margin-top: 5px;
   transition: border 0.4s ease;
+  text-align: center;
+  color: black;
 }
 
 .login-input:hover {
-  border: 2px solid #70a1ff; /* Bordure au survol */
+  border: 2px solid #70a1ff; 
 }
 
 .login-input:focus {
-  border: 2px solid #70a1ff; /* Bordure au focus */
+  border: 2px solid #70a1ff; 
   box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
 }
 
 .login-input::placeholder {
-  color: rgba(15, 15, 15, 0.4); /* Couleur du texte de l'espace réservé */
+  color: rgba(15, 15, 15, 0.4); 
 }
 
-/* Styles pour les boutons */
 .login-btn {
   width: 100%;
   padding: 10px;
-  background-color: #70a1ff; /* Couleur de fond du bouton */
+  background-color: #70a1ff; 
   border: 0;
   font-size: 18px;
   border-radius: 5px;
-  color: #ffffff; /* Couleur du texte du bouton */
+  color: #ffffff; 
   margin-top: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .login-btn:hover {
-  background-color: #417cef; /* Couleur de fond au survol */
-  transform: scale(1.05); /* Zoom au survol */
+  background-color: #417cef; 
+  transform: scale(1.05); 
 }

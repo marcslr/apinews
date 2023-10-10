@@ -16,10 +16,6 @@ function Navbar() {
           {/* <img src="" alt="Lien 1" /> */}
         </a>
         <a>
-          <Link to="/Sports">Sports</Link>
-          {/* <img src="" alt="Lien 2" /> */}
-        </a>
-        <a>
           <Link to="/meteo">Meteo</Link>
           {/* <img src="" alt="Lien 3" /> */}
         </a>
