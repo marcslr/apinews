@@ -1,7 +1,9 @@
 .news-app {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 20px;
+    flex-direction: column;    
 }
 .background-video {
   position: fixed;
@@ -20,6 +22,7 @@
     border: 1px solid;
     margin-bottom: 20px;
     text-align: center;
+    background-color: #D62839; 
 }
 
 .news-img {
