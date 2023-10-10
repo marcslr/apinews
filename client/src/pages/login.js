@@ -1,235 +1,183 @@
-import React, { useContext, useState } from "react";
-// import ReactDOM from "react";
+import React, { useState } from "react";
 import "../styles/styleLogin.css";
 
-import axios from "axios";
-// import { AuthContext } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
-
-export default class Log extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isLoginOpen: true, isRegisterOpen: false };
-  }
-
-  // pour le changement du return() afficher dans la page
-  showLoginBox() {
-    this.setState({ isLoginOpen: true, isRegisterOpen: false });
-  }
-
-  showRegisterBox() {
-    this.setState({ isRegisterOpen: true, isLoginOpen: false });
-  }
-
-  render() {
-    return (
-      <div className="root-container">
-        <div className="box-container">
-          <div
-            className={
-              "controller" +
-              (this.state.isLoginOpen ? "selected-controller" : "")
-            }
-            onClick={this.showLoginBox.bind(this)}
-          >
-            Login
-          </div>
-          <div
-            className={
-              "controller" +
-              (this.state.isRegisterOpen ? "selected-controller" : "")
-            }
-            onClick={this.showRegisterBox.bind(this)}
-          >
-            Register
-          </div>
-        </div>
-        <div className="box-container">
-          {this.state.isLoginOpen && <LoginBox />}
-          {this.state.isRegisterOpen && <RegisterBox />}
-        </div>
-      </div>
-    );
-  }
-}
-
-// --------- bloc return 1 LOGIN
-function LoginBox() {
+export default function LoginPage() {
+  const [isLoginOpen, setIsLoginOpen] = useState(true);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
-  });
-
-  const [messageErreur, setMessageErreur] = useState(null);
-  // console.log(inputs);
-
-  const navigate = useNavigate();
-
-  //   const { login } = useContext(AuthContext);
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // const res = await axios.post("/auth/login", inputs)
-      // console.log(res);
-      //   await login(inputs);
-      navigate("/admin/gestion");
-    } catch (err) {
-      setMessageErreur(err.response.data);
-    }
-  };
-
-  return (
-    <div className="inner-container">
-      <div className="header">Login</div>
-      <div className="box">
-        <div className="input-group">
-          <label htmlFor="username">username</label>
-          <input
-            type="text"
-            name="username"
-            className="login-input"
-            placeholder="username"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">password</label>
-          <input
-            type="password"
-            name="password"
-            className="login-input"
-            placeholder="password"
-            onChange={handleChange}
-          />
-        </div>
-
-        {messageErreur && <p>{messageErreur}</p>}
-        <button type="button" className="login-btn" onClick={handleSubmit}>
-          Login
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// --------- bloc return 2 REGISTER
-function RegisterBox() {
-  const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-    password: "",
-    prenom: "",
+    nomUtilisateur: "",
+    motDePasse: "",
+    prénom: "",
     nom: "",
-    adresse: "",
-    codepost: "",
+    email: "",
+    confirmerMotDePasse: "",
   });
-
   const [messageErreur, setMessageErreur] = useState(null);
-  // console.log(inputs);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("/auth", inputs);
-      console.log(res);
-    } catch (err) {
-      setMessageErreur(err.response.data);
-    }
   };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  const toggleLoginRegister = () => {
+    setIsLoginOpen(!isLoginOpen);
+    setIsRegisterOpen(!isRegisterOpen);
+    setMessageErreur(null);
+  };
+
   return (
-    <div className="inner-container">
-      <div className="header">Register</div>
-      <div className="box">
-        <div className="input-group">
-          <label htmlFor="username">Nom d'utilisateur : </label>
-          <input
-            type="text"
-            name="username"
-            className="login-input"
-            placeholder="nom d'utilisateur"
-            onChange={handleChange}
-          />
+    <div className="root-container">
+      <div className="box-container">
+        <div
+          className={"controller" + (isLoginOpen ? " selected-controller" : "")}
+          onClick={toggleLoginRegister}
+        >
+          Connexion
         </div>
-        <div className="input-group">
-          <label htmlFor="username">Nom : </label>
-          <input
-            type="text"
-            name="nom"
-            className="login-input"
-            placeholder="nom"
-            onChange={handleChange}
-          />
+        <div
+          className={
+            "controller" + (isRegisterOpen ? " selected-controller" : "")
+          }
+          onClick={toggleLoginRegister}
+        >
+          S'inscrire
         </div>
-        <div className="input-group">
-          <label htmlFor="username">Prénom : </label>
-          <input
-            type="text"
-            name="prenom"
-            className="login-input"
-            placeholder="prénom"
-            onChange={handleChange}
+      </div>
+      <div className="box-container">
+        {isLoginOpen ? (
+          <LoginForm
+            inputs={inputs}
+            handleChange={handleChange}
+            handleSubmit={handleLoginSubmit}
+            messageErreur={messageErreur}
           />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Email : </label>
-          <input
-            type="email"
-            name="email"
-            className="login-input"
-            placeholder="password"
-            onChange={handleChange}
+        ) : (
+          <RegisterForm
+            inputs={inputs}
+            handleChange={handleChange}
+            handleSubmit={handleRegisterSubmit}
+            messageErreur={messageErreur}
           />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Mot de passe : </label>
-          <input
-            type="password"
-            name="password"
-            className="login-input"
-            placeholder="mot de passe"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Adresse :</label>
-          <input
-            type="text"
-            name="adresse"
-            className="login-input"
-            placeholder="adresse"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Code Postal :</label>
-          <input
-            type="text"
-            name="codepost"
-            className="login-input"
-            placeholder="code postal"
-            onChange={handleChange}
-          />
-        </div>
-        {messageErreur && <p>{messageErreur}</p>}
-        <button type="button" className="login-btn" onClick={handleSubmit}>
-          Enregistrer
-        </button>
+        )}
       </div>
     </div>
   );
 }
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<Log />);
+function LoginForm({ inputs, handleChange, handleSubmit, messageErreur }) {
+  return (
+    <div className="inner-container">
+      <div className="header">Connexion</div>
+      <div className="box">
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="nomUtilisateur">Nom d'utilisateur :</label>
+            <input
+              type="text"
+              name="nomUtilisateur"
+              className="login-input"
+              placeholder="Nom d'utilisateur"
+              onChange={handleChange}
+              value={inputs.nomUtilisateur}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="motDePasse">Mot de passe :</label>
+            <input
+              type="password"
+              name="motDePasse"
+              className="login-input"
+              placeholder="Mot de passe"
+              onChange={handleChange}
+              value={inputs.motDePasse}
+            />
+          </div>
+          {messageErreur && <p>{messageErreur}</p>}
+          <button type="submit" className="login-btn">
+            Connexion
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function RegisterForm({ inputs, handleChange, handleSubmit, messageErreur }) {
+  return (
+    <div className="inner-container">
+      <div className="header">Inscription</div>
+      <div className="box">
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="prénom">Prénom :</label>
+            <input
+              type="text"
+              name="prénom"
+              className="login-input"
+              placeholder="Prénom"
+              onChange={handleChange}
+              value={inputs.prénom}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="nom">Nom :</label>
+            <input
+              type="text"
+              name="nom"
+              className="login-input"
+              placeholder="Nom"
+              onChange={handleChange}
+              value={inputs.nom}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="email">Email :</label>
+            <input
+              type="email"
+              name="email"
+              className="login-input"
+              placeholder="Email"
+              onChange={handleChange}
+              value={inputs.email}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="motDePasse">Mot de passe :</label>
+            <input
+              type="password"
+              name="motDePasse"
+              className="login-input"
+              placeholder="Mot de passe"
+              onChange={handleChange}
+              value={inputs.motDePasse}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="confirmerMotDePasse">
+              Confirmer le mot de passe :
+            </label>
+            <input
+              type="password"
+              name="confirmerMotDePasse"
+              className="login-input"
+              placeholder="Confirmer le mot de passe"
+              onChange={handleChange}
+              value={inputs.confirmerMotDePasse}
+            />
+          </div>
+          {messageErreur && <p>{messageErreur}</p>}
+          <button type="submit" className="login-btn">
+            S'inscrire
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
