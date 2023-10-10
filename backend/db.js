@@ -1,64 +1,68 @@
 import mysql from "mysql";
-import express from 'express';
+import express from "express";
 import { login, logout, register } from "./controllers/controller-auth.js";
 import cookieParser from "cookie-parser";
-import cors from 'cors';
-import { addBooks, deleteBook, displayBooks, updateBook } from "./controllers/controller-books.js";
+import cors from "cors";
+import {
+  addBooks,
+  deleteBook,
+  displayBooks,
+  updateBook,
+} from "./controllers/controller_books.js";
 // import multer from "multer";
 
 export const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "books"
-    // database: "api"
-})
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "books",
+  // database: "api"
+});
 
 db.connect(function (err) {
-    if (err) {
-        return console.error('error: ' + err.message);
-    }
+  if (err) {
+    return console.error("error: " + err.message);
+  }
 
-    console.log('Connected to the MySQL server.');
+  console.log("Connected to the MySQL server.");
 });
 
 export function createBackendServer(port) {
+  const app = express();
+  app.use(express.json());
+  app.use(cookieParser());
+  app.use(cors());
 
-    const app = express();
-    app.use(express.json());
-    app.use(cookieParser())
-    app.use(cors())
+  // const storage = multer.diskStorage({
+  //     destination: function (req, file, cb) {
+  //         cb(null, '../client/src/image')
+  //     },
+  //     filename: function (req, file, cb) {
+  //         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+  //         cb(null, Date.now() + file.originalname)
+  //     }
+  // })
 
-    // const storage = multer.diskStorage({
-    //     destination: function (req, file, cb) {
-    //         cb(null, '../client/src/image')
-    //     },
-    //     filename: function (req, file, cb) {
-    //         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    //         cb(null, Date.now() + file.originalname)
-    //     }
-    // })
+  // const upload = multer({ storage: storage })
 
-    // const upload = multer({ storage: storage })
+  // CRUD - Create Read Update Delete
+  // Créer, lire les données, mettre à jour, supprimer
 
-    // CRUD - Create Read Update Delete
-    // Créer, lire les données, mettre à jour, supprimer
+  app.get("/api/books", displayBooks);
+  app.post("/api/books", addBooks);
+  app.delete("/api/books/:id", deleteBook);
+  app.put("/api/books/:id", updateBook);
 
-    app.get("/api/books", displayBooks)
-    app.post("/api/books", addBooks)
-    app.delete("/api/books/:id", deleteBook)
-    app.put("/api/books/:id", updateBook)
+  // AUTHENTIFICATION
+  app.post("/api/auth", register);
+  app.post("/api/login", login);
+  app.post("/api/logout", logout);
 
-    // AUTHENTIFICATION
-    app.post("/api/auth", register);
-    app.post("/api/login", login);
-    app.post("/api/logout", logout);
+  app.listen(port, () => {
+    console.log("backend is at port : " + port);
+  });
 
-    app.listen(port, () => {
-        console.log('backend is at port : ' + port);
-    })
-
-    app.get("/api", (req, res) => {
-        res.json("tu fonctionnes pas ??");
-    })
+  app.get("/api", (req, res) => {
+    res.json("tu fonctionnes pas ??");
+  });
 }
