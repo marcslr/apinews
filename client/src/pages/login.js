@@ -139,7 +139,10 @@ function RegisterBox() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth", inputs);
+      const res = await axios.post(
+        "http://localhost:8800/api/pommedeterre",
+        inputs
+      );
       console.log(res);
     } catch (err) {
       setMessageErreur(err.response.data);
