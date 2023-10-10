@@ -9,8 +9,7 @@ const NewsList = () => {
   useEffect(() => {
     const getArticles = async () => {
       const response = await axios.get(
-        `
-        https://newsapi.org/v2/everything?q=france&apiKey=40fe80ab18514482872006fbd868527c`
+        `https://newsapi.org/v2/everything?q=france&apiKey=40fe80ab18514482872006fbd868527c`
       );
       setArticles(response.data.articles);
       console.log(response);
