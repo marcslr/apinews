@@ -73,9 +73,9 @@ function LoginBox() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const res = await axios.post("/auth/login", inputs)
-      // console.log(res);
-      //   await login(inputs);
+      const res = await axios.post("/auth/login", inputs)
+      console.log(res);
+        // await login(inputs);
       navigate("/admin/gestion");
     } catch (err) {
       setMessageErreur(err.response.data);
@@ -140,7 +140,7 @@ function RegisterBox() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8800/api/pommedeterre",
+        "http://localhost:8800/api/auth",
         inputs
       );
       console.log(res);
@@ -162,7 +162,7 @@ function RegisterBox() {
             onChange={handleChange}
           />
         </div>
-        <div className="input-group">
+        {/* <div className="input-group">
           <label htmlFor="username">Nom : </label>
           <input
             type="text"
@@ -181,7 +181,7 @@ function RegisterBox() {
             placeholder="prénom"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="input-group">
           <label htmlFor="password">Email : </label>
@@ -194,7 +194,7 @@ function RegisterBox() {
           />
         </div>
 
-        <div className="input-group">
+         <div className="input-group">
           <label htmlFor="password">Mot de passe : </label>
           <input
             type="password"
@@ -205,7 +205,7 @@ function RegisterBox() {
           />
         </div>
 
-        <div className="input-group">
+         {/*<div className="input-group">
           <label htmlFor="password">Adresse :</label>
           <input
             type="text"
@@ -224,7 +224,7 @@ function RegisterBox() {
             placeholder="code postal"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         {messageErreur && <p>{messageErreur}</p>}
         <button type="button" className="login-btn" onClick={handleSubmit}>
           Enregistrer
