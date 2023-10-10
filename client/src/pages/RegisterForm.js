@@ -8,7 +8,7 @@ export default function RegisterForm({
 }) {
   return (
     <div className="inner-container">
-      <div className="header">Inscription</div>
+<div className="header">Inscription</div>
       <div className="box">
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -60,7 +60,7 @@ export default function RegisterForm({
               Confirmer le mot de passe :
             </label>
             <input
-              type="password"
+type="password"
               name="confirmerMotDePasse"
               className="login-input"
               placeholder="Confirmer le mot de passe"
