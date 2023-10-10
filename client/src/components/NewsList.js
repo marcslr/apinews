@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NewsItem } from "../components/index.js";
+import videoacc from "../videos/bg-acc.mp4";
 
 const NewsList = () => {
   const [articles, setArticles] = useState([]);
@@ -16,18 +17,21 @@ const NewsList = () => {
 
     getArticles();
   }, []);
+
   return (
-    <div>
-      {articles.map((article) => {
-        return (
-          <NewsItem
-            title={article.title}
-            description={article.description}
-            url={article.url}
-            urlToImage={article.urlToImage}
-          />
-        );
-      })}
+    <div className="news-app">
+      <video autoPlay muted loop className="background-video">
+        <source src={videoacc} type="video/mp4" />
+      </video>
+      {articles.map((article) => (
+        <NewsItem
+          key={article.title}
+          title={article.title}
+          description={article.description}
+          url={article.url}
+          urlToImage={article.urlToImage}
+        />
+      ))}
     </div>
   );
 };
