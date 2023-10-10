@@ -19,7 +19,7 @@ export default function Head() {
           <Route path="/meteo" element={<Meteo />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/compte" element={<Compte />} />
-          <Route path="/login" element={<Log />} />
+          <Route path="/signin" element={<Log />} />
         </Routes>
       </BrowserRouter>
     </>
