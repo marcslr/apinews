@@ -178,6 +178,7 @@ function RegisterBox() {
               onChange={handleChange}
               value={inputs.email}
             />
+            <div className="gg"> </div>
           </div>
           <div className="input-group">
             <label htmlFor="motDePasse">Mot de passe :</label>
