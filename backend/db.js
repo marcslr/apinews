@@ -15,8 +15,8 @@ export const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "books"
-  // database: "api"
+  database: "api"
+  // database: "books"
 });
 
 db.connect(function (err) {
@@ -54,7 +54,7 @@ export function createBackendServer(port) {
   app.put("/api/books/:id", updateBook);
 
   // AUTHENTIFICATION
-  app.post("/api/pommedeterre", register);
+  app.post("/api/auth", register);
   app.post("/api/login", login);
   app.post("/api/logout", logout);
 

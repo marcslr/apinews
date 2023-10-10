@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "../styles/styleLogin.css";
 import axios from "axios";
-import RegisterForm from "../pages/RegisterForm"; 
-
-
+import RegisterForm from "../pages/RegisterForm";
 
 export default function LoginPage() {
   const [isLoginOpen, setIsLoginOpen] = useState(true);
@@ -28,54 +26,16 @@ export default function LoginPage() {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    try {
+      // const res = await axios.post("/auth/login", inputs)
+      // console.log(res);
+      //   await login(inputs);
+      navigate("/admin/gestion");
+    } catch (err) {
+      setMessageErreur(err.response.data);
+    }
   };
 
-  const toggleLoginRegister = () => {
-    setIsLoginOpen(!isLoginOpen);
-    setIsRegisterOpen(!isRegisterOpen);
-    setMessageErreur(null);
-  };
-
-  return (
-    <div className="root-container">
-      <div className="box-container">
-        <div
-          className={"controller" + (isLoginOpen ? " selected-controller" : "")}
-          onClick={toggleLoginRegister}
-        >
-          Connexion
-        </div>
-        <div
-          className={
-            "controller" + (isRegisterOpen ? " selected-controller" : "")
-          }
-          onClick={toggleLoginRegister}
-        >
-          S'inscrire
-        </div>
-      </div>
-      <div className="box-container">
-        {isLoginOpen ? (
-          <LoginForm
-            inputs={inputs}
-            handleChange={handleChange}
-            handleSubmit={handleLoginSubmit}
-            messageErreur={messageErreur}
-          />
-        ) : (
-          <RegisterForm
-            inputs={inputs}
-            handleChange={handleChange}
-            handleSubmit={handleRegisterSubmit}
-            messageErreur={messageErreur}
-          />
-        )}
-      </div>
-    </div>
-  );
-}
-
-function LoginForm({ inputs, handleChange, handleSubmit, messageErreur }) {
   return (
     <div className="inner-container">
       <div className="header">Connexion</div>
@@ -135,7 +95,10 @@ function RegisterBox() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth", inputs);
+      const res = await axios.post(
+        "http://localhost:8800/api/pommedeterre",
+        inputs
+      );
       console.log(res);
     } catch (err) {
       setMessageErreur(err.response.data);
@@ -145,70 +108,83 @@ function RegisterBox() {
     <div className="inner-container">
       <div className="header">Inscription</div>
       <div className="box">
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="prénom">Prénom :</label>
-            <input
-              type="text"
-              name="prénom"
-              className="login-input"
-              placeholder="Prénom"
-              onChange={handleChange}
-              value={inputs.prénom}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="nom">Nom :</label>
-            <input
-              type="text"
-              name="nom"
-              className="login-input"
-              placeholder="Nom"
-              onChange={handleChange}
-              value={inputs.nom}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="email">Email :</label>
-            <input
-              type="email"
-              name="email"
-              className="login-input"
-              placeholder="Email"
-              onChange={handleChange}
-              value={inputs.email}
-            />
-            <div className="gg"> </div>
-          </div>
-          <div className="input-group">
-            <label htmlFor="motDePasse">Mot de passe :</label>
-            <input
-              type="password"
-              name="motDePasse"
-              className="login-input"
-              placeholder="Mot de passe"
-              onChange={handleChange}
-              value={inputs.motDePasse}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="confirmerMotDePasse">
-              Confirmer le mot de passe :
-            </label>
-            <input
-              type="password"
-              name="confirmerMotDePasse"
-              className="login-input"
-              placeholder="Confirmer le mot de passe"
-              onChange={handleChange}
-              value={inputs.confirmerMotDePasse}
-            />
-          </div>
-          {messageErreur && <p>{messageErreur}</p>}
-          <button type="submit" className="login-btn">
-            S'inscrire
-          </button>
-        </form>
+        <div className="input-group">
+          <label htmlFor="username">Nom d'utilisateur : </label>
+          <input
+            type="text"
+            name="username"
+            className="login-input"
+            placeholder="nom d'utilisateur"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="username">Nom : </label>
+          <input
+            type="text"
+            name="nom"
+            className="login-input"
+            placeholder="nom"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="username">Prénom : </label>
+          <input
+            type="text"
+            name="prenom"
+            className="login-input"
+            placeholder="prénom"
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Email : </label>
+          <input
+            type="email"
+            name="email"
+            className="login-input"
+            placeholder="password"
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Mot de passe : </label>
+          <input
+            type="password"
+            name="password"
+            className="login-input"
+            placeholder="mot de passe"
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Adresse :</label>
+          <input
+            type="text"
+            name="adresse"
+            className="login-input"
+            placeholder="adresse"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="password">Code Postal :</label>
+          <input
+            type="text"
+            name="codepost"
+            className="login-input"
+            placeholder="code postal"
+            onChange={handleChange}
+          />
+        </div>
+        {messageErreur && <p>{messageErreur}</p>}
+        <button type="button" className="login-btn" onClick={handleSubmit}>
+          Enregistrer
+        </button>
       </div>
     </div>
   );
