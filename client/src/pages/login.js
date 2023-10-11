@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
-// import ReactDOM from "react";
 import "../styles/styleLogin.css";
-
 
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
@@ -33,7 +31,7 @@ class Log extends React.Component {
             }
             onClick={this.showLoginBox.bind(this)}
           >
-            Login
+            Connexion
           </div>
           <div
             className={
@@ -42,7 +40,7 @@ class Log extends React.Component {
             }
             onClick={this.showRegisterBox.bind(this)}
           >
-            Register
+            Inscription
           </div>
         </div>
         <div className="box-container">
@@ -86,7 +84,7 @@ function LoginBox() {
 
   return (
     <div className="inner-container">
-      <div className="header">Login</div>
+      <div className="header">Connexion</div>
       <div className="box">
         <div className="input-group">
           <label htmlFor="username">username</label>
@@ -149,7 +147,7 @@ function RegisterBox() {
   };
   return (
     <div className="inner-container">
-      <div className="header">Register</div>
+      <div className="header">Inscription</div>
       <div className="box">
         <div className="input-group">
           <label htmlFor="username">Nom d'utilisateur : </label>
