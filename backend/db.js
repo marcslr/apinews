@@ -15,7 +15,7 @@ export const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "api"
+  database: "api",
   // database: "books"
 });
 

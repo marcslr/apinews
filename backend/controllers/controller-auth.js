@@ -6,6 +6,7 @@ export const register = (req, res) => {
   // res.json("REGISTER PAGE");
   // Check si l'utilisateur existe
 
+  console.log("partie enregistrement");
   const query = "SELECT * FROM user WHERE email = ? OR username = ?";
   db.query(query, [req.body.email, req.body.username], (err, data) => {
     if (err) return res.status(409).json(err);
@@ -18,7 +19,8 @@ export const register = (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     // const q =  "INSERT INTO user(`username`, `email`, `password`, `prenom`, `nom`, `adresse`, `codepost`) VALUES (?)";
-    const q = "INSERT INTO user(`username`, `email`, `password`) VALUES (?)";
+    const q =
+      "INSERT INTO `api`.`user`(`username`, `email`, `password`) VALUES (?)";
 
     // req = request (requiert)
     // body = viens du body (html)
@@ -26,7 +28,7 @@ export const register = (req, res) => {
     const values = [
       req.body.username,
       req.body.email,
-      hash
+      hash,
       //   req.body.prenom,
       //   req.body.nom,
       //   req.body.adresse,
