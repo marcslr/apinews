@@ -1,15 +1,14 @@
-/* Navbar.css */
 .navbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #D62839; /* Couleur de fond de la barre de navigation */
-  color: white; /* Couleur du texte */
+  background-color: #D62839; 
+  color: white;
   padding: 30px 20px;
 }
 
 .logo img {
-  width: 300px; /* Ajustez la largeur de votre logo */
+  width: 300px; 
 }
 
 .links {

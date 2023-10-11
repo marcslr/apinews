@@ -8,7 +8,6 @@
   background-color: #2ba4e1;
 }
 
-/* Styles for the login and register buttons */
 .controller {
   flex: 1;
   text-align: center;
@@ -28,14 +27,12 @@
   border: 1px solid #70a1ff;
 }
 
-/* Container for the buttons */
 .box-container {
   display: flex;
   gap: 10px;
-  justify-content: center; /* Center the buttons horizontally */
+  justify-content: center; 
 }
 
-/* Styles for the inner container (login/register forms) */
 .inner-container {
   width: 100%;
   max-width: 400px;
@@ -47,7 +44,6 @@
   text-align: center;
 }
 
-/* Styles for the header (Login/Register title) */
 .header {
   text-align: center;
   padding: 10px;
@@ -55,7 +51,6 @@
   border-bottom: 2px solid #70a1ff;
 }
 
-/* Styles for the form elements */
 .box {
   display: flex;
   flex-direction: column;
