@@ -23,6 +23,10 @@ function Navbar() {
           <Link to="/signin">Compte</Link>
           {/* <img src="" alt="Lien 3" /> */}
         </a>
+        <a>
+          <Link to="/profil">Profil</Link>
+          {/* <img src="" alt="Lien 3" /> */}
+        </a>
       </div>
     </div>
   );
