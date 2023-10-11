@@ -141,6 +141,7 @@ function RegisterBox() {
     try {
       const res = await axios.post("/auth", inputs);
       console.log(res);
+      alert("utilisateur bien enregistrer");
     } catch (err) {
       setMessageErreur(err.response.data);
     }

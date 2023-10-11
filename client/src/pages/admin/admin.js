@@ -3,164 +3,145 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 
-import ImageUn from '../../image/livre.jpg';
+// import ImageUn from "../../image/livre.jpg";
 
-import "../../styles/admin.css"
+import "../../styles/admin.css";
 // import styled from 'styled-components'
 
-// const Button = styled.button`
-//     border-radius: 16px;
-// 	border: 2px solid black;
-// 	background-color: #DACA3B;
-// 	color: #FFFFFF;
-// 	font-size: 12px;
-// 	font-weight: bold;
-// 	padding: 15px 45px;
-//     margin-bottom: 20px;
-// 	letter-spacing: 1px;
-// 	text-transform: uppercase;
-// 	transition: transform 80ms ease-in;
-//     cursor:pointer;
-// `
 
-const Add = () => {
 
-    const navigate = useNavigate();
+export const Add = () => {
+  const navigate = useNavigate();
 
-    const [book, setBook] = useState({
-        book_title: "",
-        book_author: "",
-        book_desc: "",
-        book_price: null,
-        book_cover: "",
-        book_quantite: null,
-        cat: "divers"
-    })
+  const [profil, setProfil] = useState({
+    profil_nom: "",
+    profil_desc: "",
+    profil_url: "",
+  });
 
-    const handleChange = (e) => {
-        setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  const handleChange = (e) => {
+    setProfil((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  // console.log(book);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/profils", profil);
+      window.location.reload();
+    } catch (err) {
+      console.log("error");
+      console.log(err);
+      console.log("error");
     }
-    // console.log(book);
+  };
+  return (
+    <>
+      <div className="form">
+        <h2>Ajouter un nouveau livre</h2>
 
-    const handleClick = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post("/books", book)
-            window.location.reload()
-        } catch (err) {
-            console.log("error")
-            console.log(err);
-            console.log("error")
-        }
+        <input
+          type="text"
+          placeholder="nom"
+          onChange={handleChange}
+          name="profil_nom"
+        />
+
+        <input
+          type="text"
+          placeholder="description"
+          onChange={handleChange}
+          name="profil_desc"
+        />
+
+        <input
+          type="text"
+          placeholder="url"
+          onChange={handleChange}
+          name="profil_url"
+        />
+        <button onClick={handleClick}>Ajouter le livre</button>
+      </div>
+    </>
+  );
+};
+
+const DisplayProfils = () => {
+  const [profils, setProfils] = useState([]);
+  useEffect(() => {
+    const fetchProfils = async () => {
+      try {
+        const res = await axios.get("/profils");
+        setProfils(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfils();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("/profils/" + id);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
     }
-    return (
-        <>
-            <div className="form">
+  };
 
-                <h2>Ajouter un nouveau livre</h2>
-
-                <input type="text" placeholder='titre' onChange={handleChange} name="book_title" />
-
-                <input type="text" placeholder='auteur' onChange={handleChange} name="book_author" />
-
-                <input type="text" placeholder='description' onChange={handleChange} name="book_desc" />
-
-                <input type="number" placeholder='prix' onChange={handleChange} name="book_price" />
-
-                {/* <input type="file" accept="image/png, image/jpeg" placeholder='cover' onChange={handleChange} name="book_cover" /> */}
-
-                <input type="number" placeholder='quantite' onChange={handleChange} name="book_quantite" />
-
-
-                <div className="elementForm">
-                    <select className="select" name="cat" onChange={handleChange}>
-                        <option value="divers">Divers</option>
-                        <option value="fantastique">Fantastique</option>
-                        <option value="jeunesse">Jeunesse</option>
-                        <option value="roman">Roman</option>
-                    </select>
-                    <button onClick={handleClick}>Ajouter le livre</button>
-                </div>
-            </div >
-        </>
-    )
-}
-
-
-
-const DisplayBooks = () => {
-    const [books, setBooks] = useState([])
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const res = await axios.get("/books")
-                setBooks(res.data)
-                console.log(res.data)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchBooks();
-    }
-        , []);
-
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete("/books/" + id)
-            window.location.reload()
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
-    return (
-        <>
-            <div className="list-livres">
-                <div className="fondBooks">
-                    {books.map(book => (
-                        <div className="book" key={book.book_id}>
-                            {/* {book.book_cover && <img src="" alt="" />} */}
-                            <img src={ImageUn} alt={ImageUn} />
-                            <h3>{book.book_title}</h3>
-                            <p>{book.book_desc}</p>
-                            <p>Prix : {book.book_price}€</p>
-                            <p>Quantité : {book.book_quantite}</p>
-                            <button className="delete" onClick={() => handleDelete(book.book_id)}>Supprimer</button>
-                            <button className="update" >< Link to={`/admin/update/${book.book_id}`}>Mettre à jour</Link></button>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <>
+      <div className="list-livres">
+        <div className="fondBooks">
+          {profils.map((profil) => (
+            <div className="book" key={profil.profil_id}>
+              {/* {book.book_cover && <img src="" alt="" />} */}
+              {/* <img src={ImageUn} alt={ImageUn} /> */}
+              <h3>{profil.profil_nom}</h3>
+              <p>{profil.profil_desc}</p>
+              <p>{profil.url}</p>
+              
+              <button
+                className="delete"
+                onClick={() => handleDelete(profil.profil_id)}
+              >
+                Supprimer
+              </button>
+              <button className="update">
+                <Link to={`/admin/update/${profil.profil_id}`}>
+                  Mettre à jour
+                </Link>
+              </button>
             </div>
-        </>
-    )
-}
-
-
-
-
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export const Admin = () => {
-    axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
 
-    const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-    return (
-        <div className="pageAdmin">
+  return (
+    <div className="pageAdmin">
+      <div className="titre-admin">
+        <h2>Bienvenue {currentUser?.username} sur la page admin</h2>
+      </div>
 
-            <div className="titre-admin"><h2>Bienvenue {currentUser?.username} sur la page admin</h2></div>
+      <div className="containerAdmin1">
+        <Add />
+      </div>
 
-            <div className="containerAdmin1">
-                < Add />
-            </div>
+      <div className="containerAdmin2">
+        <h2 className="titre-admin">TOUS LES LIVRES</h2>
 
-            <div className="containerAdmin2">
-                <h2 className="titre-admin">TOUS LES LIVRES</h2>
-
-                < DisplayBooks />
-
-            </div>
-        </div >
-    )
-
-}
+        <DisplayProfils />
+      </div>
+    </div>
+  );
+};
+export default Add

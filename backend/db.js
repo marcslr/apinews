@@ -4,11 +4,11 @@ import { login, logout, register } from "./controllers/controller-auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import {
-  addBooks,
-  deleteBook,
-  displayBooks,
-  updateBook,
-} from "./controllers/controller_books.js";
+  addProfils,
+  deleteProfils,
+  displayProfils,
+  updateProfils
+} from "./controllers/controller_profils.js";
 // import multer from "multer";
 
 export const db = mysql.createConnection({
@@ -33,25 +33,13 @@ export function createBackendServer(port) {
   app.use(cookieParser());
   app.use(cors());
 
-  // const storage = multer.diskStorage({
-  //     destination: function (req, file, cb) {
-  //         cb(null, '../client/src/image')
-  //     },
-  //     filename: function (req, file, cb) {
-  //         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-  //         cb(null, Date.now() + file.originalname)
-  //     }
-  // })
-
-  // const upload = multer({ storage: storage })
-
   // CRUD - Create Read Update Delete
   // Créer, lire les données, mettre à jour, supprimer
 
-  app.get("/api/books", displayBooks);
-  app.post("/api/books", addBooks);
-  app.delete("/api/books/:id", deleteBook);
-  app.put("/api/books/:id", updateBook);
+  app.get("/api/profil", displayProfils);
+  app.post("/api/profil", addProfils);
+  app.delete("/api/profil/:id", deleteProfils);
+  app.put("/api/profil/:id", updateProfils);
 
   // AUTHENTIFICATION
   app.post("/api/auth", register);
