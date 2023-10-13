@@ -13,7 +13,7 @@ const Crud = () => {
       await axios.post("localhost:8800/api/profil", formData);
       setSuccessMessage("Profil utilisateur bien enregistrer !");
       setErrorMessage("");
-      console.log("azaza");
+      console.log("Profil bien ajouter");
     } catch (error) {
       setErrorMessage("Erreur lors de l'enregistrement");
       setSuccessMessage("");

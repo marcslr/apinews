@@ -36,7 +36,7 @@ export const updateProfils = (req, res) => {
   ];
   db.query(q, [...valueProfil], (err, data) => {
     if (err) return res.status(400).json(err);
-    return res.json("book has been updated succesfully");
+    return res.json("Profile has been updated succesfully");
   });
 };
 

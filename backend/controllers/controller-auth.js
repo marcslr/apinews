@@ -29,10 +29,6 @@ export const register = (req, res) => {
       req.body.username,
       req.body.email,
       hash,
-      //   req.body.prenom,
-      //   req.body.nom,
-      //   req.body.adresse,
-      //   req.body.codepost,
     ];
 
     db.query(q, [values], (err, data) => {

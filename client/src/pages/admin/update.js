@@ -14,7 +14,7 @@ export const Update = () => {
         setCurrentData(res.data[0]);
         // console.log(res.data[0]);
       } catch (err) {
-        console.log("oopsie l'erreur de data :" + err);
+        console.log("erreur de data :" + err);
       }
     };
     fetchProfilInfo();
