@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import "../../styles/Update.css";
 
 export const Update = () => {
   const location = useLocation();

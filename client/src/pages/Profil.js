@@ -3,6 +3,7 @@ import axios from "axios";
 // import "../styles/Crud.css"
 import { DisplayProfils } from "./admin/admin";
 import UpdateProfil from "../components/UpdateProfil";
+import "../styles/Profil.css";
 
 const Crud = () => {
   const [successMessage, setSuccessMessage] = useState(""); // Ajoutez cette ligne
