@@ -8,8 +8,6 @@ import { AuthContext } from "../../context/authContext";
 import "../../styles/admin.css";
 // import styled from 'styled-components'
 
-
-
 export const Add = () => {
   const navigate = useNavigate();
 
@@ -22,23 +20,22 @@ export const Add = () => {
   const handleChange = (e) => {
     setProfil((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  // console.log(book);
+  //  console.log(profil);
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/profils", profil);
-      window.location.reload();
+      const res = await axios.post("/profil", profil);
+      // window.location.reload();
+      console.log(res.data);
     } catch (err) {
-      console.log("error");
       console.log(err);
-      console.log("error");
     }
   };
   return (
     <>
       <div className="form">
-        <h2>Ajouter un nouveau livre</h2>
+        <h2>Ajouter un nouveau profil</h2>
 
         <input
           type="text"
@@ -66,12 +63,12 @@ export const Add = () => {
   );
 };
 
-const DisplayProfils = () => {
+export const DisplayProfils = () => {
   const [profils, setProfils] = useState([]);
   useEffect(() => {
     const fetchProfils = async () => {
       try {
-        const res = await axios.get("/profils");
+        const res = await axios.get("/profil");
         setProfils(res.data);
         console.log(res.data);
       } catch (err) {
@@ -83,7 +80,7 @@ const DisplayProfils = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete("/profils/" + id);
+      await axios.delete("/profil/" + id);
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -101,7 +98,7 @@ const DisplayProfils = () => {
               <h3>{profil.profil_nom}</h3>
               <p>{profil.profil_desc}</p>
               <p>{profil.url}</p>
-              
+
               <button
                 className="delete"
                 onClick={() => handleDelete(profil.profil_id)}
@@ -109,9 +106,7 @@ const DisplayProfils = () => {
                 Supprimer
               </button>
               <button className="update">
-                <Link to={`/admin/update/${profil.profil_id}`}>
-                  Mettre à jour
-                </Link>
+                <Link to={`/update/${profil.profil_id}`}>Mettre à jour</Link>
               </button>
             </div>
           ))}
@@ -144,4 +139,3 @@ export const Admin = () => {
     </div>
   );
 };
-export default Add

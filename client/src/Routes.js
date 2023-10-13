@@ -10,7 +10,7 @@ import Profil from "./pages/Profil.js";
 
 // import { PageAdmin } from './routes-auth';
 import Update from "./pages/admin/update.js";
-import Add from "./pages/admin/admin.js";
+// import Add from "./pages/admin/admin.js";
 
 export default function Head() {
   return (
@@ -24,8 +24,8 @@ export default function Head() {
           <Route path="/compte" element={<Compte />} />
           <Route path="/signin" element={<Log />} />
           <Route path="/profil" element={<Profil />} />
-          <Route path="/update" element={<Update />} />
-          <Route path="/admin" element={<Add />} />
+          <Route path="/update/:id" element={<Update />} />
+          {/* <Route path="/admin" element={<Add />} /> */}
           {/* Ne s'affichera que si le role est admin
 <Route path="/admin" >
     <Route path="/admin/gestion" element={<PageAdmin />} />

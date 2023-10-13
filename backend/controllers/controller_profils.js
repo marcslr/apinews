@@ -2,21 +2,21 @@ import { db } from "../db.js";
 
 export const addProfils = (req, res) => {
   const q =
-    "INSERT INTO `api`.`profil` (`profil_nom`, `profil_desc`, `profil_url`) VALUES (?);";
-  const profils = [
-    req.body.profil_id,
+    "INSERT INTO profil (`profil_nom`, `profil_desc`, `profil_url`) VALUES (?)";
+  const valueProfil = [
     req.body.profil_nom,
     req.body.profil_desc,
     req.body.profil_url,
   ];
-  db.query(q, [profils], (err, data) => {
+  db.query(q, [valueProfil], (err, data) => {
     if (err) return res.json(err);
-    return res.json("book has been created");
+    // console.log(data);
+    return res.json("Profil bien créer");
   });
 };
 
 export const displayProfils = (req, res) => {
-  const query = "SELECT * FROM books.book";
+  const query = "SELECT * FROM api.profil";
   // console.log("cc ???")
   db.query(query, (err, data) => {
     if (err) return res.json("Erreur de data livres");
@@ -27,26 +27,33 @@ export const displayProfils = (req, res) => {
 
 export const updateProfils = (req, res) => {
   const profilId = req.params.id;
-  const q =
-    "UPDATE `api`.`profil` SET `profil_nom` = ?, `profil_desc` = ?, `profil_url` = ? WHERE profil_id = ?";
-
-  const values = [
-    req.body.profil_id,
+  const q = `UPDATE api.profil SET profil_nom=?, profil_desc=?, profil_url=? WHERE profil_id=?`;
+  const valueProfil = [
     req.body.profil_nom,
     req.body.profil_desc,
     req.body.profil_url,
+    profilId,
   ];
-  db.query(q, [...values, profilId], (err, data) => {
-    if (err) return res.json(err);
+  db.query(q, [...valueProfil], (err, data) => {
+    if (err) return res.status(400).json(err);
     return res.json("book has been updated succesfully");
   });
 };
 
 export const deleteProfils = (req, res) => {
   const profilId = req.params.id;
-  const q = "DELETE FROM api.profil WHERE book_id = ?";
+  const q = "DELETE FROM api.profil WHERE profil_id = ?";
   db.query(q, [profilId], (err, data) => {
     if (err) return res.json(err);
-    return res.json("livre bien supprimé");
+    return res.json("profil bien supprimé");
+  });
+};
+
+export const prendreUnProfil = (req, res) => {
+  const profilId = req.params.id;
+  const q = "SELECT * FROM api.profil WHERE profil_id = ?";
+  db.query(q, [profilId], (err, data) => {
+    if (err) return res.status(400).json(err);
+    return res.json(data);
   });
 };

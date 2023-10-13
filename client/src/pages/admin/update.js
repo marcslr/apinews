@@ -4,17 +4,15 @@ import axios from "axios";
 
 export const Update = () => {
   const location = useLocation();
-
-  const profilId = location.pathname.split("/")[3];
-
+  const profilId = location.pathname.split("/")[2];
   const [currentData, setCurrentData] = useState([]);
 
   useEffect(() => {
     const fetchProfilInfo = async () => {
       try {
-        const res = await axios.get("/profil/");
-        setCurrentData(res.data);
-        console.log(res.data);
+        const res = await axios.get("/profil/" + profilId);
+        setCurrentData(res.data[0]);
+        // console.log(res.data[0]);
       } catch (err) {
         console.log("oopsie l'erreur de data :" + err);
       }
@@ -25,10 +23,8 @@ export const Update = () => {
   const [profil, setProfil] = useState({
     profil_nom: "",
     profil_desc: "",
-    profil_url: ""
+    profil_url: "",
   });
-
-  console.log(location.pathname.split("/")[3]);
 
   const handleChange = (e) => {
     setProfil((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -37,14 +33,17 @@ export const Update = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`/profil/${profilId}`, profil);
-      console.log(res.data);
+      const res = await axios.put(
+        `http://localhost:8800/api/profil/${profilId}`,
+        profil
+      );
+      // console.log(res.data);
       // navigate("/");
-      console.log("awouuuu");
     } catch (err) {
       console.log(err);
     }
   };
+  // console.log(profil);
   return (
     <div className="form update">
       <h2>Modifier livre</h2>
@@ -74,4 +73,4 @@ export const Update = () => {
     </div>
   );
 };
-export default Update
+export default Update;

@@ -7,7 +7,8 @@ import {
   addProfils,
   deleteProfils,
   displayProfils,
-  updateProfils
+  prendreUnProfil,
+  updateProfils,
 } from "./controllers/controller_profils.js";
 // import multer from "multer";
 
@@ -38,6 +39,7 @@ export function createBackendServer(port) {
 
   app.get("/api/profil", displayProfils);
   app.post("/api/profil", addProfils);
+  app.get("/api/profil/:id", prendreUnProfil);
   app.delete("/api/profil/:id", deleteProfils);
   app.put("/api/profil/:id", updateProfils);
 
